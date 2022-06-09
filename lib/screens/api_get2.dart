@@ -13,8 +13,6 @@ class GetSpecificData extends StatefulWidget {
 
 class _GetSpecificDataState extends State<GetSpecificData> {
   var stringResponse = '';
-
-  var name = '';
   List ApiData = [''];
 
   Future apicall() async {
@@ -74,7 +72,7 @@ class _GetSpecificDataState extends State<GetSpecificData> {
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),
-                              Text(ApiData[index]['user']['id'].toString()),
+                              Text("${ApiData[index]['user']['id']}"),
                               SizedBox(
                                 height: 20,
                               ),
