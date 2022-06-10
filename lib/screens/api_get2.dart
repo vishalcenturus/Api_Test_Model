@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:api_tester/screens/post_api.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -13,7 +12,9 @@ class GetSpecificData extends StatefulWidget {
 
 class _GetSpecificDataState extends State<GetSpecificData> {
   var stringResponse = '';
-  List ApiData = [''];
+  List ApiData = [];
+
+  
 
   Future apicall() async {
     var response;
@@ -24,8 +25,10 @@ class _GetSpecificDataState extends State<GetSpecificData> {
         stringResponse = response.body.toString();
         ApiData = jsonDecode(stringResponse);
       });
+      print(ApiData);
     }
   }
+   
 
   @override
   void initState() {
@@ -56,68 +59,66 @@ class _GetSpecificDataState extends State<GetSpecificData> {
                 child: SingleChildScrollView(
                   child: Padding(
                     padding: const EdgeInsets.all(10),
-                    child: Expanded(
-                      child: ListView.builder(
-                        physics: NeverScrollableScrollPhysics(),
-                        scrollDirection: Axis.vertical,
-                        shrinkWrap: true,
-                        itemCount: ApiData.length,
-                        itemBuilder: (context, index) {
-                          return Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                "USER:-",
-                                style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                ),
+                    child: ListView.builder(
+                      physics: NeverScrollableScrollPhysics(),
+                      scrollDirection: Axis.vertical,
+                      shrinkWrap: true,
+                      itemCount: ApiData.length,
+                      itemBuilder: (context, index) {
+                        return Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                               "USER:-",
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
                               ),
-                              Text("${ApiData[index]['user']['id']}"),
-                              SizedBox(
-                                height: 20,
+                            ),
+                            Text(ApiData[index]['user']['id'].toString()),
+                            SizedBox(
+                              height: 20,
+                            ),
+                            Text(
+                              "MENTOR:-",
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
                               ),
-                              Text(
-                                "MENTOR:-",
-                                style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                ),
+                            ),
+                            Text(ApiData[index]['mentor']['id'].toString() +
+                                '\n' +
+                                ApiData[index]['mentor']['name'].toString() +
+                                '\n ' +
+                                ApiData[index]['mentor']['email'].toString()),
+                            SizedBox(
+                              height: 20,
+                            ),
+                            Text(
+                              "Mentor_Plan:-",
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
                               ),
-                              Text(ApiData[index]['mentor']['id'].toString() +
-                                  '\n' +
-                                  ApiData[index]['mentor']['name'].toString() +
-                                  '\n ' +
-                                  ApiData[index]['mentor']['email'].toString()),
-                              SizedBox(
-                                height: 20,
-                              ),
-                              Text(
-                                "Mentor_Plan:-",
-                                style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                              Text(ApiData[index]['mentor_plan']['id']
-                                      .toString() +
-                                  '\n' +
-                                  ApiData[index]['mentor_plan']['plan_name']
-                                      .toString() +
-                                  '\n' +
-                                  ApiData[index]['mentor_plan']
-                                          ['meeting_duration']
-                                      .toString() +
-                                  '\n' +
-                                  ApiData[index]['mentor_plan']['charges']
-                                      .toString()),
-                                      Divider(
-                                        thickness: 2,
-                                      ),
-                                      SizedBox(
-                                height: 20,
-                              ),
-                            ],
-                          );
-                        },
-                      ),
+                            ),
+                            Text(ApiData[index]['mentor_plan']['id']
+                                    .toString() +
+                                '\n' +
+                                ApiData[index]['mentor_plan']['plan_name']
+                                    .toString() +
+                                '\n' +
+                                ApiData[index]['mentor_plan']
+                                        ['meeting_duration']
+                                    .toString() +
+                                '\n' +
+                                ApiData[index]['mentor_plan']['charges']
+                                    .toString()),
+                                    Divider(
+                                      thickness: 2,
+                                    ),
+                                    SizedBox(
+                              height: 20,
+                            ),
+                          ],
+                        );
+                      },
                     ),
                   ),
                 ),
@@ -157,3 +158,5 @@ class _GetSpecificDataState extends State<GetSpecificData> {
     );
   }
 }
+
+
